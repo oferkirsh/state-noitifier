@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'state_notifier/version'
+require 'state/notifier/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "state-notifier"
-  spec.version       = StateNotifier::VERSION
+  spec.version       = State::Notifier::VERSION
   spec.authors       = ["Vitaly Kushner"]
   spec.email         = ["vitaly@astrails.com"]
   spec.description   = %q{Simple gem to notify 'subscribers' about record state changes.}
