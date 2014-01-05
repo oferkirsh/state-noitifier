@@ -22,7 +22,7 @@ Or install it yourself as:
       belongs_to :provider, ...
       has_many :participants, ...
 
-      include StateNotifier
+      include State::Notifier
       notification_targets :provider, :participants
 
       state_machine do
