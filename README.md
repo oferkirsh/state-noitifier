@@ -23,7 +23,7 @@ Or install it yourself as:
       has_many :participants, ...
 
       include State::Notifier
-      notification_targets :provider, :participants
+      notification_targets :provider, :participants, EventMailer
 
       state_machine do
         ...

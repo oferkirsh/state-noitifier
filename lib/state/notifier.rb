@@ -8,7 +8,9 @@ module State
       name = self.class.name.underscore
       method = [name, event] * '_'
 
-      targets = self.class.notification_targets.map {|m| send(m)}.flatten
+      targets = self.class.notification_targets.map do |m|
+        m.is_a?(Symbol) ? send(m) : m
+      end.flatten
       Rails.logger.debug "StateNotifier: notifying #{method}, #{targets.size} targets"
 
       targets.each do |t|
