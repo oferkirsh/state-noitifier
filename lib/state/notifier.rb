@@ -20,7 +20,10 @@ module State
 
     def notify_transition(transition)
       notify_targets transition.event
-      notify_targets transition.to unless transition.to == transition.from
+      unless transition.to == transition.from
+        notify_targets transition.to
+        notify_targets "#{transition.event}_#{transition.to}"
+      end
     end
 
     included do

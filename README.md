@@ -18,6 +18,20 @@ Or install it yourself as:
 
 ## Usage
 
+    `notify_targets(method_name)` will call `<class_name>_<method_name>` on
+    every target that supports it (i.e. `responds_to?`). For example, calling
+    `notify_target(:foo)` on an `Event` object will call `event_foo` on
+    supporting targets.
+
+    `notify_targets` is automatically called with `:created` and `:updated` in
+    `after_create` and `after_update` respectively.
+
+    For classes with a state machine the following calls are made:
+
+    - `<event_name>`
+    - `<target_state>` - only when its different from previous state
+    - `<event_name>_<target_state>` - only when its different from previous state
+
     class Event
       belongs_to :provider, ...
       has_many :participants, ...
