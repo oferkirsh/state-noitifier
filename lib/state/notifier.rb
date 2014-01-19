@@ -29,9 +29,11 @@ module State
     included do
       after_create {notify_targets :created}
       after_update {notify_targets :updated  unless (changed - self.class.reserved_attributes).empty?}
-      if respond_to?(:state_machine)
-        state_machine do
-          after_transition { |record, transition| record.notify_transition transition }
+      if respond_to?(:state_machines) && respond_to?(:state_machine)
+        state_machines.keys.each do |machine|
+          state_machine machine do
+            after_transition { |record, transition| record.notify_transition transition }
+          end
         end
       end
     end
