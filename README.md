@@ -28,9 +28,14 @@ Or install it yourself as:
 
     For classes with a state machine the following calls are made:
 
-    - `<event_name>`
-    - `<target_state>` - only when its different from previous state
-    - `<event_name>_<target_state>` - only when its different from previous state
+    `<event_name>` is notified every time.
+
+    Additionally, if the new state is different from the previous one, we also
+    get those 3 notifications:
+
+    - `state_changed`
+    - `<target_state>`
+    - `<event_name>_<target_state>`
 
     class Event
       belongs_to :provider, ...
