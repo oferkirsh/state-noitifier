@@ -22,8 +22,10 @@ module State
       notify_targets transition.event
       unless transition.to == transition.from
         notify_targets transition.to
+        notify_targets "#{transition.from}_#{transition.event}"
         notify_targets "#{transition.event}_#{transition.to}"
         notify_targets "#{transition.from}_#{transition.to}"
+        notify_targets "#{transition.from}_#{transition.event}_#{transition.to}"
         notify_targets :state_changed
       end
     end
