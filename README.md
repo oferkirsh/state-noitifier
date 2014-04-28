@@ -36,6 +36,7 @@ Or install it yourself as:
     - `state_changed`
     - `<target_state>`
     - `<event_name>_<target_state>`
+    - `<source_state>_<target_state>`
 
     class Event
       belongs_to :provider, ...
