@@ -5,14 +5,23 @@ module State
     extend ActiveSupport::Concern
 
     def notify_targets(event)
+      custom_subclasses = {
+        'custom_rails_admin/approved_funz' => 'funz',
+        'custom_rails_admin/unapproved_funz' => 'funz'
+      }
+
       name = self.class.name.underscore
+      if custom_subclasses[name]
+        name = custom_subclasses[name]
+        klass = self.class.superclass
+      else
+        klass = self.class
+      end
       method = [name, event] * '_'
-
-      targets = self.class.notification_targets.map do |m|
+      targets = klass.notification_targets.map do |m|
         m.is_a?(Symbol) ? send(m) : m
-      end.flatten
-      Rails.logger.debug "StateNotifier: notifying #{method}, #{targets.size} targets"
-
+        end.flatten
+        Rails.logger.debug "StateNotifier: notifying #{method}, #{targets.size} targets"     
       targets.each do |t|
         t.send(method, self) if t.respond_to?(method)
       end
